@@ -1,2 +1,3 @@
 # ControleFinancas
-Em desenvolvimento
+
+Projeto em desenvolvimento
