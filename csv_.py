@@ -7,14 +7,14 @@ class Arquivo():
     def __init__(self) -> None:
         self.caminho = Path.cwd() / f'Extrato.csv'
 
-    def criar(self, caminho: Path):
+    def criar(self, caminho):
         if not caminho.exists():
             with open(caminho, 'w', newline='') as arquivo:
                 nome_colunas = ['Data', 'Nome', 'Valor']
                 escritor = csv.DictWriter(arquivo, fieldnames=nome_colunas)
                 escritor.writeheader()
 
-    def adicionar(self, dados : list) -> None:
+    def adicionar(self, dados):
         if not self.caminho.exists():
             self.criar(self.caminho)
         
@@ -24,7 +24,7 @@ class Arquivo():
             for valor in dados:
                 escritor.writerow(valor)
 
-    def visualizar(self) -> None:
+    def visualizar(self):
         if not self.caminho.exists():
             print('Arquivo não existente para ler!')
 
@@ -36,7 +36,7 @@ class Arquivo():
                     print(linha['Data'], linha['Nome'], linha['Valor'])
                     print()
 
-    def total(self) -> str:
+    def total(self):
         if not self.caminho.exists():
             print('Arquivo não existente para ler!')
 
@@ -54,7 +54,7 @@ class Arquivo():
                         
             return f'Total: R$ {total:.2f}'
         
-    def salvar_copia(self) -> None:
+    def salvar_copia(self):
         if not self.caminho.exists():
             print('Arquivo não existente para copiar!')
 
