@@ -11,13 +11,13 @@ class File():
         self.path = Path.cwd() / f'Extrato.csv'
         self.fieldNames = ['Arquivo', 'Data', 'Nome', 'Valor']
 
-    def create(self, caminho):
-        if not caminho.exists():
-            with open(caminho, 'w', newline='') as file:
+    def create(self, path: Path) -> None:
+        if not path.exists():
+            with open(path, 'w', newline='') as file:
                 writer = csv.DictWriter(file, fieldnames=self.fieldNames)
                 writer.writeheader()
 
-    def add(self, data):
+    def add(self, data: dict| list[dict]) -> None:
         if not self.path.exists():
             self.create(self.path)
         
@@ -26,8 +26,8 @@ class File():
             for valor in data:
                 escritor.writerow(valor)
 
-    def view(self):
-        planilha = ""
+    def view(self) -> str | None:
+        planilha: str = ''
 
         if not self.path.exists():
             self.showError('Arquivo não existente para ler!')
@@ -41,13 +41,13 @@ class File():
 
                 return planilha
             
-    def remove(self, indexToRemove):
+    def remove(self, indexToRemove: int) -> None:
         indexToRemove -= 1
         if not self.path.exists():
             self.showError('Arquivo não existente para ler!')
         else:
             with open(self.path, 'r') as arquivo:
-                new_lines = []
+                new_lines: list = []
                 reader = csv.DictReader(arquivo)
 
                 for currIndex, line in enumerate(reader):
@@ -62,7 +62,7 @@ class File():
                 writer.writerows(new_lines)
 
 
-    def total(self):
+    def total(self) -> str | None:
         if not self.path.exists():
             self.showError('Arquivo não existente para ler!')
 
@@ -80,15 +80,15 @@ class File():
                         
             return f'Total: R$ {total:.2f}'
         
-    def saveCopy(self):
+    def saveCopy(self) -> None:
         if not self.path.exists():
             print('Arquivo não existente para copiar!')
 
         else:
-            destiny = Path.home() / 'Desktop' / 'Extrato.csv' 
+            destiny: Path = Path.home() / 'Desktop' / 'Extrato.csv' 
             shutil.copy(self.path, destiny)
             print('Arquivo salvado com sucesso!')
 
-    def showError(self, msg):
+    def showError(self, msg: str) -> None:
         self.windowError = WindowError(msg)
         self.windowError.show()
