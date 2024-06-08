@@ -24,4 +24,3 @@ Projeto de um programa que cadastra seus gastos em .csv, com controle por interf
 
 
 
-# :construction: Projeto em desenvolvimento :construction:
